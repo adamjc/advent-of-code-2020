@@ -1,6 +1,8 @@
 import { readFileSync } from 'fs'
+import { join } from 'path'
 
-const input:Array<number> = readFileSync('./input').toString().trim().split('\n').map(Number)
+const inputFile = join(__dirname, './input')
+const input = readFileSync(inputFile).toString().trim().split('\n').map(Number)
 
 for (let i = 0; i < input.length; i += 1) {
   for (let j = i + 1; j < input.length; j += 1) {
