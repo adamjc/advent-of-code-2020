@@ -9,11 +9,6 @@ interface vector {
   y: number
 }
 
-let toboggan = {
-  x: 0,
-  y: 0
-}
-
 const trajectories = [
   { x: 1, y: 1 },
   { x: 3, y: 1 },
@@ -22,8 +17,16 @@ const trajectories = [
   { x: 1, y: 2 }
 ]
 
-const treeCounts = trajectories.map(trajectory => {
+const treeCount = trajectories
+  .map(countTrees)
+  .reduce((totalTreeCount, nextTreeCount) => totalTreeCount * nextTreeCount)
+
+console.log(treeCount)
+
+function countTrees (trajectory: vector):number {
   let treeCount = 0
+  let toboggan = { x: 0, y: 0 }
+
   do {
     if (field[toboggan.y][toboggan.x] === '#') {
       treeCount += 1
@@ -31,16 +34,7 @@ const treeCounts = trajectories.map(trajectory => {
     toboggan = move(toboggan, field[0].length, trajectory)
   } while (field[toboggan.y] !== undefined)
 
-  toboggan = resetToboggan()
-
   return treeCount
-})
-
-function resetToboggan ():vector {
-  return {
-    x: 0,
-    y: 0
-  }
 }
 
 function move (toboggan:vector, fieldWidth:number, movement:vector):vector {
@@ -49,5 +43,3 @@ function move (toboggan:vector, fieldWidth:number, movement:vector):vector {
     y: toboggan.y + movement.y
   }
 }
-
-console.log(treeCounts.reduce((acc, next) => acc * next))
