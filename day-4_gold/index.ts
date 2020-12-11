@@ -19,7 +19,7 @@ const passports = readFileSync(inputFile).toString().trim().split('\n\n').map(pa
 
 console.log(passports.length)
 
-function isValidPassport (passport:passport):null|boolean {
+function isValidPassport (passport:passport):boolean {
   const isValid = [...validation].reduce((valid, [prop, validator]) => {
     const passProp = passport[prop]
     return valid ? Boolean(passProp && validator(passProp)) : valid
